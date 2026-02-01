@@ -87,7 +87,7 @@ export const dataAllResumes = [
         }
     ],
     skills: ['React', 'Tailwind'],
-    template: 'classic',
+    template: 'minimal-image',
     accent_color: '#3B82F6',
     updatedAt: "2025-11-30T01:10:49.371Z",
     createdAt: "2025-11-16T01:25:44.547Z",

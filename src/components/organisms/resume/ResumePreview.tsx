@@ -1,27 +1,24 @@
-import type { IResume } from "../../../types/resume"
+import { useResume } from "../../../hooks/useResume"
 import ClassicTemplate from "../../templates/resume/ClassicTemplate"
-import MinialImageTemplate from "../../templates/resume/MinialImageTemplate"
+import { MinimalImageTemplate } from "../../templates/resume/MinialImageTemplate"
 import MinialTemplate from "../../templates/resume/MinialTemplate"
 import ModernTemplate from "../../templates/resume/ModernTemplate"
 
-interface ResumePreviewProps {
-  resumeData: IResume
-}
-
-function ResumePreview({ resumeData }: ResumePreviewProps ) {
-
+function ResumePreview() {
+  const { data } = useResume();
+  const template = data.template;
   return (
     <div 
       id="resume-preview"
       className="border border-gray-200 print:shadow-none print:border-none"
     >
-      {resumeData.template === 'modern' && <ModernTemplate />}
+      {template === 'modern' && <ModernTemplate />}
 
-      {resumeData.template === 'minimal' && <MinialTemplate />}
+      {template === 'minimal' && <MinialTemplate />}
 
-      {resumeData.template === 'classic' && <ClassicTemplate />}
+      {template === 'classic' && <ClassicTemplate />}
 
-      {resumeData.template === 'minimal-image' && <MinialImageTemplate />}
+      {template === 'minimal-image' && <MinimalImageTemplate data={data} accentColor={data.accent_color} />}
 
     </div>
   )

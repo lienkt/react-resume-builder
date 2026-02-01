@@ -1,13 +1,11 @@
 import { Check, Palette } from 'lucide-react'
 import React from 'react'
 import { dataAccentColors } from '../../../data';
+import { useResume } from '../../../hooks/useResume';
 
-interface ColorPickerProps {
-  colorSelected: string,
-  onClick: (value: string) => void
-}
-
-function ColorPicker({ colorSelected, onClick }: ColorPickerProps) {
+function ColorPicker() {
+  const { updateAccentColor } = useResume();
+  const colorSelected = useResume(state => state.data.accent_color);
   const [isOpen, setIsOpen] = React.useState(false);
   
   function toggleOpen() {
@@ -32,7 +30,7 @@ function ColorPicker({ colorSelected, onClick }: ColorPickerProps) {
             <div
               key={color.value}
               className='relative cursor-pointer group flex flex-col'
-              onClick={() => onClick(color.value)}
+              onClick={() => updateAccentColor(color.value)}
             >
               <div
                 className='w-12 h-12 rounded-full border-2 border-transparent group-hover:border-black/25 transition-colors'

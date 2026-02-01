@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, useParams } from "react-router"
-import type { IResume } from "../../types/resume";
 import { dataAllResumes } from "../../data";
 import { ArrowLeftIcon, ChevronLeft, ChevronRight } from "lucide-react";
 import TemplateSelector from "../../components/organisms/resume/TemplateSelector";
@@ -12,6 +11,7 @@ import Education from "../../components/organisms/resume/Education";
 import Project from "../../components/organisms/resume/Project";
 import Skill from "../../components/organisms/resume/Skill";
 import ResumePreview from "../../components/organisms/resume/ResumePreview";
+import { useResume } from "../../hooks/useResume";
 
 const sections = [
   { id: 'personal', name: 'Personal Infomation' },
@@ -24,25 +24,9 @@ const sections = [
 
 function ResumeBuilder() {
   const { resumeId } = useParams();
-  const [resumeData, setResumeData] = React.useState<IResume>({
-    _id: '',
-    userId: '',
-    title: '',
-    personal_info: null, 
-    professional_summary: '',
-    experience: [],
-    education: [],
-    project: [],
-    skills: [],
-    template: 'classic', // minial, minial-image, modern, classic
-    accent_color: '#3B82F6',
-    updatedAt: '',
-    createdAt: ''
-  });
+  const { setResume, updateAccentColor } = useResume();
   const [activeSectionIndex, setActiveSectionIndex] = React.useState(0);
   const activeSection = sections[activeSectionIndex]
-  
-  console.log('resumeBuilder: ',resumeId)
 
   React.useEffect(() => {
     if (!resumeId) return;
@@ -51,23 +35,14 @@ function ResumeBuilder() {
       
       const resume = dataAllResumes.find(resume => resume._id === resumeId);
       if (!resume) return;
-      setResumeData(resume)
+      // setResumeData(resume)
+      setResume(resume)
     }
     fetchResume();
   }, [resumeId]) 
 
-  function updateTemplate(name: string) {
-    setResumeData(prevState => ({
-      ...prevState,
-      template: name
-    }))
-  }
-
-  function updateAccentColor(value: string) {
-    setResumeData(prevState => ({
-      ...prevState,
-      accent_color: value
-    }))
+  function _updateAccentColor(value: string) {
+    updateAccentColor(value)
   }
 
   function handlePrevSection() {
@@ -83,7 +58,6 @@ function ResumeBuilder() {
     })
   }
 
-  console.log('resumeData: ', resumeData)
   return (
     <>
       <Link to="/dashboard" className="inline-flex gap-2 items-center text-slate-500 hover:text-slate-700 transition-all">
@@ -97,15 +71,9 @@ function ResumeBuilder() {
 
             <div className="flex justify-between items-center mb-6 border-b border-gray-300 py-1">
               <div className="flex items-center gap-2">
-                <TemplateSelector 
-                  templateSelected={resumeData.template}
-                  onClick={updateTemplate}
-                />
+                <TemplateSelector />
 
-                <ColorPicker 
-                  colorSelected={resumeData.accent_color}
-                  onClick={updateAccentColor}
-                />
+                <ColorPicker />
               </div>
 
               <div className="flex items-center">
@@ -166,7 +134,7 @@ function ResumeBuilder() {
 
         <div className="lg:col-span-7 max-lg:mt-6">
           <div className="w-full bg-gray-100">
-            <ResumePreview  resumeData={resumeData} />
+            <ResumePreview  />
           </div>
         </div>
       </div>

@@ -1,13 +1,11 @@
 import { Check, Layout } from 'lucide-react'
 import React from 'react';
 import { templates } from '../../../data';
+import { useResume } from '../../../hooks/useResume';
 
-interface TemplateSelectorProps {
-  templateSelected: string,
-  onClick: (name: string) => void
-}
-
-function TemplateSelector({ templateSelected, onClick }: TemplateSelectorProps) {
+function TemplateSelector() {
+  const { updateTemplate } = useResume();
+  const templateSelected = useResume(state => state.data.template);
   const [isOpen, setIsOpen] = React.useState(false);
 
   function toggleOpenTemplate() {
@@ -34,7 +32,7 @@ function TemplateSelector({ templateSelected, onClick }: TemplateSelectorProps) 
               <div 
                 key={template.id}
                 className={`relative p-3 border rounded-md cursor-pointer transition-all border-gray-300 ${isSelected ? 'border-blue-400 bg-blue-100' : 'hover:border-gray-400 hover:bg-gray-100'}`}
-                onClick={() => onClick(template.id)}
+                onClick={() => updateTemplate(template.id)}
               >
                 {isSelected && (
                   <div className='absolute top-2 right-2'>

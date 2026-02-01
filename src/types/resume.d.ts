@@ -50,3 +50,8 @@ export interface IResume {
   updatedAt: string,
   createdAt: string
 }
+
+export interface ITemplateProps {
+  data: DataResumeState,
+  accentColor: string
+}
