@@ -21,6 +21,7 @@ export const useResume = create<ResumeState>((set) => ({
     education: [],
     project: [],
     skills: [],
+    public: true,
     template: 'classic', // minial, minial-image, modern, classic
     accent_color: '#3B82F6',
     updatedAt: '',

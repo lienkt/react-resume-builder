@@ -48,7 +48,8 @@ export interface IResume {
   template: string, // minial, minial-image, modern, classic
   accent_color: string,
   updatedAt: string,
-  createdAt: string
+  createdAt: string,
+  public: boolean
 }
 
 export interface ITemplateProps {

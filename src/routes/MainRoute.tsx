@@ -21,6 +21,10 @@ export const mainRoute = createBrowserRouter([
       {
         path: '/resume-builder/:resumeId',
         lazy: () => import("../pages/resume-builder").then(module => ({ Component: module.default })),
+      },
+       {
+        path: '/resume-share/:resumeId',
+        lazy: () => import("../pages/resume-share").then(module => ({ Component: module.default })),
       }
     ]
   },

@@ -1,6 +1,6 @@
 import { useResume } from "../../../hooks/useResume";
 import TextField from "../../molecules/TextField"
-import { User } from 'lucide-react';
+import { BriefcaseBusiness, Globe, Linkedin, MapPin, Phone, User } from 'lucide-react';
 
 function PersonalInfo() {
   const { data, updatePersonalInfo } = useResume();
@@ -47,7 +47,71 @@ function PersonalInfo() {
             updatePersonalInfo('email', event.target.value)
           }}
         />
-        
+      </div>
+
+      <div className="space-y-1 mt-5">
+        <TextField 
+          icon={Phone}
+          label="Phone Number"
+          required
+          placeholder="Enter Phone Number"
+          value={data.personal_info?.phone || ''}
+          onChange={(event) => {
+            updatePersonalInfo('phone', event.target.value)
+          }}
+        />
+      </div>
+
+      <div className="space-y-1 mt-5">
+        <TextField 
+          icon={MapPin}
+          label="Location"
+          required
+          placeholder="Enter Location"
+          value={data.personal_info?.location || ''}
+          onChange={(event) => {
+            updatePersonalInfo('location', event.target.value)
+          }}
+        />
+      </div>
+
+      <div className="space-y-1 mt-5">
+        <TextField 
+          icon={BriefcaseBusiness}
+          label="Profession"
+          required
+          placeholder="Enter Profession"
+          value={data.personal_info?.profession || ''}
+          onChange={(event) => {
+            updatePersonalInfo('profession', event.target.value)
+          }}
+        />
+      </div>
+
+      <div className="space-y-1 mt-5">
+        <TextField 
+          icon={Linkedin}
+          label="LinkeIn Profile"
+          required
+          placeholder="Enter LinkeIn Profile"
+          value={data.personal_info?.linkedin || ''}
+          onChange={(event) => {
+            updatePersonalInfo('linkedin', event.target.value)
+          }}
+        />
+      </div>
+
+      <div className="space-y-1 mt-5">
+        <TextField 
+          icon={Globe}
+          label="Personal Website"
+          required
+          placeholder="Enter Personal Website"
+          value={data.personal_info?.website || ''}
+          onChange={(event) => {
+            updatePersonalInfo('website', event.target.value)
+          }}
+        />
       </div>
     </div>
   )

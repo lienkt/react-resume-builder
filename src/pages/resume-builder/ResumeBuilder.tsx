@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useParams } from "react-router"
 import { dataAllResumes } from "../../data";
-import { ArrowLeftIcon, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeftIcon, ChevronLeft, ChevronRight, DownloadIcon, EyeIcon, Share2Icon } from "lucide-react";
 import TemplateSelector from "../../components/organisms/resume/TemplateSelector";
 import ColorPicker from "../../components/organisms/resume/ColorPicker";
 import PersonalInfo from "../../components/organisms/resume/PersonalInfo";
@@ -12,6 +12,7 @@ import Project from "../../components/organisms/resume/Project";
 import Skill from "../../components/organisms/resume/Skill";
 import ResumePreview from "../../components/organisms/resume/ResumePreview";
 import { useResume } from "../../hooks/useResume";
+import ControlAction from "../../components/organisms/resume/ControlAction";
 
 const sections = [
   { id: 'personal', name: 'Personal Infomation' },
@@ -24,7 +25,7 @@ const sections = [
 
 function ResumeBuilder() {
   const { resumeId } = useParams();
-  const { setResume, updateAccentColor } = useResume();
+  const { setResume } = useResume();
   const [activeSectionIndex, setActiveSectionIndex] = React.useState(0);
   const activeSection = sections[activeSectionIndex]
 
@@ -41,10 +42,6 @@ function ResumeBuilder() {
     fetchResume();
   }, [resumeId]) 
 
-  function _updateAccentColor(value: string) {
-    updateAccentColor(value)
-  }
-
   function handlePrevSection() {
     setActiveSectionIndex(prevState => {
       return prevState - 1
@@ -60,14 +57,27 @@ function ResumeBuilder() {
 
   return (
     <>
-      <Link to="/dashboard" className="inline-flex gap-2 items-center text-slate-500 hover:text-slate-700 transition-all">
-        <ArrowLeftIcon className="size-4"/> Back to Dashboard
-      </Link>
+      <div className="mb-4 flex items-center justify-between">
+        <Link to="/dashboard" className="inline-flex gap-2 items-center text-slate-500 hover:text-slate-700 transition-all">
+          <ArrowLeftIcon className="size-4"/> Back to Dashboard
+        </Link>
 
+        <div className="flex items-center gap-4">
+          <ControlAction 
+            resumeId={resumeId}
+          />
+        </div>
+      </div>
+      
       <div className="grid lg:grid-cols-12 gap-8">
         <div className="relative lg:col-span-5 rounded-lg">
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 pt-1">
-            {/* <hr className="absolute top-0 left-0 h-1 bg-gradient-to-r from-green-500 to-green-600 border-none transition-all duration-200" /> */}
+            <hr 
+              className="absolute top-0 left-0 h-1 bg-gradient-to-r from-green-500 to-green-600 border-none transition-all duration-200" 
+              style={{
+                width: `${activeSectionIndex * 100 / (sections.length - 1)}%`
+              }}
+            />
 
             <div className="flex justify-between items-center mb-6 border-b border-gray-300 py-1">
               <div className="flex items-center gap-2">
